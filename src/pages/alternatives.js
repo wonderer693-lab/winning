@@ -33,39 +33,8 @@ const ALTERNATIVE_TARGETS = [
   'whistic',
 ];
 
-// Hand-written switching context per target: why people actually leave.
-const SWITCH_CONTEXT = {
-  vanta:
-    'The usual triggers are renewal quotes that jumped with headcount, a feeling that the platform optimizes for checkbox compliance rather than real security work, or a first quote that simply did not fit a seed-stage budget.',
-  drata:
-    'Teams look elsewhere when tier pricing jumps, when post-acquisition packaging confused their renewal, or when a smaller, cheaper platform covers everything they actually use.',
-  secureframe:
-    'Switching searches here are usually about brand weight: a big customer asked why they are not on Vanta or Drata, or the team wants deeper AI questionnaire automation.',
-  sprinto:
-    'Teams outgrow Sprinto when they need a larger US auditor network, deeper enterprise features, or a brand their Fortune 500 buyers recognize on sight.',
-  thoropass:
-    'The common trigger is the bundle itself: teams that want to choose their own auditor, or whose board wants auditor independence, start looking at unbundled platforms.',
-  hyperproof:
-    'Hyperproof buyers rarely complain about capability. They look for alternatives when the price and implementation effort outweigh what a smaller team can use.',
-  scytale:
-    'Teams look beyond Scytale when they need a bigger integration ecosystem, more enterprise references, or a platform their auditors already know well.',
-  delve:
-    'As the newest platform in this category, Delve loses deals when buyers want a longer track record, a bigger auditor network, or enterprise features like multi-entity management.',
-  onetrust:
-    'OneTrust switching searches are about weight and cost: teams that bought an enterprise privacy suite for a SOC 2 problem find it heavy, slow and priced for a different buyer.',
-  upguard:
-    'Teams look for UpGuard alternatives when vendor risk pricing grows with vendor count, or when they realize they need internal compliance automation, not third-party monitoring.',
-  conveyor:
-    'Conveyor users look elsewhere when per-room and per-seat costs add up, or when they want questionnaire automation bundled inside a full compliance platform.',
-  safebase:
-    'Since the Drata acquisition, SafeBase switching searches are mostly standalone customers asking what happens to their plan, and whether Conveyor or a platform-native trust center fits better.',
-  auditboard:
-    'Switching searches here come from growth-stage teams that were sold an enterprise audit suite: too much platform, too much implementation, and enterprise pricing. Public companies running SOX rarely leave; teams that bought it for a first SOC 2 usually do.',
-  logicgate:
-    'Teams leave LogicGate when the configuration effort outgrows the need. Risk Cloud rewards organizations with mature, custom risk processes and punishes everyone else with a build project, so buyers who wanted a working program in weeks look at packaged platforms.',
-  whistic:
-    'Whistic buyers look elsewhere when vendor review volume is low and the exchange network does not cover their actual suppliers, or when they realize they need internal compliance automation alongside third-party reviews.',
-};
+// Switching context lives in the dataset (tools.js switchContext), so all
+// copy for an alternative page comes from one entry.
 
 // Rank replacements: same category first, then by shared framework
 // coverage, breaking ties by circular distance from the target. The
@@ -116,7 +85,7 @@ export function alternativesIndexPage() {
 
 export function alternativePage(target) {
   const alts = alternativesFor(target);
-  const context = SWITCH_CONTEXT[target.slug];
+  const context = target.switchContext;
   const crumbItems = [
     { name: 'Home', path: '/' },
     { name: 'Alternatives', path: '/alternatives/' },

@@ -51,6 +51,8 @@ export const tools = [
       'Support quality depends on plan tier',
       'Enterprise features are locked behind the most expensive plans',
     ],
+    switchContext:
+      'The usual triggers are renewal quotes that jumped with headcount, a feeling that the platform optimizes for checkbox compliance rather than real security work, or a first quote that simply did not fit a seed-stage budget.',
   },
   {
     slug: 'drata',
@@ -96,6 +98,8 @@ export const tools = [
       'Post-acquisition packaging is still shifting, so quotes vary',
       'Overkill for a five-person startup that only needs SOC 2 Type I',
     ],
+    switchContext:
+      'Teams look elsewhere when tier pricing jumps, when post-acquisition packaging confused their renewal, or when a smaller, cheaper platform covers everything they actually use.',
   },
   {
     slug: 'secureframe',
@@ -141,6 +145,8 @@ export const tools = [
       'UI is functional rather than polished',
       'Fewer AI automation features than the top two',
     ],
+    switchContext:
+      'Switching searches here are usually about brand weight: a big customer asked why they are not on Vanta or Drata, or the team wants deeper AI questionnaire automation.',
   },
   {
     slug: 'sprinto',
@@ -186,6 +192,8 @@ export const tools = [
       'Brand carries less weight with conservative enterprise buyers',
       'Vendor risk module is lighter than dedicated tools',
     ],
+    switchContext:
+      'Teams outgrow Sprinto when they need a larger US auditor network, deeper enterprise features, or a brand their Fortune 500 buyers recognize on sight.',
   },
   {
     slug: 'thoropass',
@@ -231,6 +239,8 @@ export const tools = [
       'Smaller integration library',
       'Switching auditors later means switching platforms too',
     ],
+    switchContext:
+      'The common trigger is the bundle itself: teams that want to choose their own auditor, or whose board wants auditor independence, start looking at unbundled platforms.',
   },
   {
     slug: 'hyperproof',
@@ -276,6 +286,8 @@ export const tools = [
       'Priced for mid-market and up',
       'Trust center features lag dedicated products',
     ],
+    switchContext:
+      'Hyperproof buyers rarely complain about capability. They look for alternatives when the price and implementation effort outweigh what a smaller team can use.',
   },
   {
     slug: 'scytale',
@@ -321,6 +333,8 @@ export const tools = [
       'Advanced multi-entity and multi-framework operations are thinner',
       'Brand recognition is still building outside founder communities',
     ],
+    switchContext:
+      'Teams look beyond Scytale when they need a bigger integration ecosystem, more enterprise references, or a platform their auditors already know well.',
   },
   {
     slug: 'delve',
@@ -366,6 +380,8 @@ export const tools = [
       'Enterprise features like multi-entity management are limited',
       'Pricing and packaging may change as the company scales',
     ],
+    switchContext:
+      'As the newest platform in this category, Delve loses deals when buyers want a longer track record, a bigger auditor network, or enterprise features like multi-entity management.',
   },
   {
     slug: 'onetrust',
@@ -411,6 +427,8 @@ export const tools = [
       'UX reviews are mixed, with speed and clutter common complaints',
       'Overkill if the goal is a first SOC 2',
     ],
+    switchContext:
+      'OneTrust switching searches are about weight and cost: teams that bought an enterprise privacy suite for a SOC 2 problem find it heavy, slow and priced for a different buyer.',
   },
   {
     slug: 'auditboard',
@@ -456,6 +474,8 @@ export const tools = [
       'Implementation is a project, not an afternoon',
       'Overkill for any company under a few hundred employees',
     ],
+    switchContext:
+      'Switching searches here come from growth-stage teams that were sold an enterprise audit suite: too much platform, too much implementation, and enterprise pricing. Public companies running SOX rarely leave; teams that bought it for a first SOC 2 usually do.',
   },
   {
     slug: 'logicgate',
@@ -501,6 +521,8 @@ export const tools = [
       'Enterprise pricing',
       'Small teams will use a fraction of the platform',
     ],
+    switchContext:
+      'Teams leave LogicGate when the configuration effort outgrows the need. Risk Cloud rewards organizations with mature, custom risk processes and punishes everyone else with a build project, so buyers who wanted a working program in weeks look at packaged platforms.',
   },
   {
     slug: 'upguard',
@@ -546,6 +568,8 @@ export const tools = [
       'Pricing grows with vendor count',
       'Security ratings can lag real posture changes',
     ],
+    switchContext:
+      'Teams look for UpGuard alternatives when vendor risk pricing grows with vendor count, or when they realize they need internal compliance automation, not third-party monitoring.',
   },
   {
     slug: 'conveyor',
@@ -591,6 +615,8 @@ export const tools = [
       'Answer quality depends on how well the knowledge base is maintained',
       'Not a Vanta or Drata replacement',
     ],
+    switchContext:
+      'Conveyor users look elsewhere when per-room and per-seat costs add up, or when they want questionnaire automation bundled inside a full compliance platform.',
   },
   {
     slug: 'safebase',
@@ -636,6 +662,8 @@ export const tools = [
       'Historical standalone pricing was significant for one feature',
       'Migration questions remain for existing standalone customers',
     ],
+    switchContext:
+      'Since the Drata acquisition, SafeBase switching searches are mostly standalone customers asking what happens to their plan, and whether Conveyor or a platform-native trust center fits better.',
   },
   {
     slug: 'whistic',
@@ -681,6 +709,8 @@ export const tools = [
       'Brand awareness trails UpGuard and the compliance leaders',
       'Exchange value depends on network coverage for your vendors',
     ],
+    switchContext:
+      'Whistic buyers look elsewhere when vendor review volume is low and the exchange network does not cover their actual suppliers, or when they realize they need internal compliance automation alongside third-party reviews.',
   },
 ];
 

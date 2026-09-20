@@ -18,12 +18,12 @@ src/
   serve.js        local preview server (localhost:4173), traversal-guarded
   config.js       site name, URL, verified date, affiliate flag
   data/           content datasets — the moat
-    tools.js      15 tool profiles (reported pricing, strengths, weaknesses, negotiation notes)
+    tools.js      15 tool profiles (reported pricing, switching context, negotiation notes, strengths, weaknesses)
     frameworks.js framework hubs (SOC 2, ISO 27001, ...)
     segments.js   buyer segments and display labels
     pairs.js      18 vs. comparison pages with hand-written verdicts
     guides.js     long-form guides
-  lib/            layout, components, utils, OG image renderer
+  lib/            layout, components, utils, OG image renderer, data validation
   pages/          page renderers (home, tools, alternatives, compare, best, pricing, frameworks, guides, static)
 assets/
   styles.css      design system
@@ -35,18 +35,20 @@ dist/             build output (gitignored)
 ## Usage
 
 ```bash
-npm run build    # generates dist/
-npm run serve    # preview at localhost:4173
+npm run build       # validates data, generates dist/
+npm run serve       # preview at localhost:4173
+npm run check:data  # validates data files only (fast edit check)
 ```
 
 ## Adding a tool
 
-Add one entry to `src/data/tools.js` (including `priceProse` and `negotiationNote`), rebuild. A profile, alternatives page, pricing page, and every relevant framework/segment table entry are generated automatically. Removing a tool removes it from all indexes.
+Add one entry to `src/data/tools.js` (including `priceProse`, `negotiationNote` and `switchContext`), rebuild. A profile, alternatives page, pricing page, and every relevant framework/segment table entry are generated automatically. Removing a tool removes it from all indexes.
 
 ## Guardrails
 
 The build fails loudly instead of shipping a broken page:
 
+- **Data validation first:** required fields, types, and cross-references (tool → framework/segment, pair → tool) are checked before rendering; a typo'd slug or missing field errors with the exact file and field name
 - Duplicate route detection
 - 100-page budget (currently 93 indexable), checked on every build
 - Internal link checker: every `href` in the output must resolve to a route or a static file; the build throws otherwise

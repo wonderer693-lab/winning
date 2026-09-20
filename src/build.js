@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { site } from './config.js';
 import { layout } from './lib/layout.js';
 import { renderOgImage } from './lib/og.js';
+import { validateData } from './lib/validate.js';
 
 import { homePage } from './pages/home.js';
 import { toolPages } from './pages/tools.js';
@@ -81,6 +82,10 @@ Sitemap: ${site.url}/sitemap.xml
 async function build() {
   const started = Date.now();
   console.log('Building', site.name, '...');
+
+  // Data first: an invalid edit fails the build here with a precise
+  // error, before a single page is rendered.
+  validateData();
 
   const routes = [
     homePage(),
