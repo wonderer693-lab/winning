@@ -12,7 +12,8 @@ import {
   visitCta,
 } from '../lib/components.js';
 
-// Tools with a dedicated pricing research page.
+// Tools with a dedicated pricing research page. Every tracked tool is
+// covered so links from profiles, tables and vs pages always resolve.
 const PRICING_TARGETS = [
   'vanta',
   'drata',
@@ -23,7 +24,12 @@ const PRICING_TARGETS = [
   'scytale',
   'delve',
   'onetrust',
+  'auditboard',
+  'logicgate',
   'upguard',
+  'conveyor',
+  'safebase',
+  'whistic',
 ];
 
 export function pricingIndexPage() {
@@ -55,7 +61,7 @@ export function pricingIndexPage() {
         <tbody>${rows}</tbody>
       </table>
     </div>
-    ${noteBox('Treat every figure as a negotiation starting point, not a quote. Headcount, frameworks, contract length and timing all move the real number.', 'warn')}
+    ${noteBox('Reported ranges, not rate cards. Headcount, frameworks and timing move the real number.', 'warn')}
   </div>`;
   return {
     path: '/pricing/',
@@ -73,20 +79,29 @@ export function pricingPage(tool) {
     { name: `${tool.name} pricing`, path: `/pricing/${tool.slug}/` },
   ];
 
-  const rivals = tools.filter((t) => t.slug !== tool.slug && t.category === tool.category).slice(0, 4);
+  // Rivals: same category first. Categories with one or two members fall
+  // back to tools that share framework coverage, so the table never
+  // renders a single row.
+  let rivals = tools.filter((t) => t.slug !== tool.slug && t.category === tool.category).slice(0, 4);
+  if (rivals.length < 2) {
+    const shared = tools.filter(
+      (t) => t.slug !== tool.slug && !rivals.includes(t) && t.frameworks.some((f) => tool.frameworks.includes(f))
+    );
+    rivals = [...rivals, ...shared].slice(0, 4);
+  }
 
   const faqs = [
     {
       q: `How much does ${tool.name} cost?`,
-      a: `${tool.name} does not publish a full rate card. ${tool.pricingNote}`,
+      a: `${tool.name} ${tool.priceProse}. Your quote moves with headcount and frameworks, so treat any number as a range.`,
     },
     {
       q: `Does ${tool.name} have a free trial?`,
-      a: 'Most vendors in this category offer a demo rather than a self-serve trial, because onboarding means connecting your cloud and identity systems. Ask for a scoped pilot on your own stack before signing an annual contract.',
+      a: 'Onboarding means connecting your cloud and identity systems, so most vendors here run demos rather than self-serve trials. Ask for a scoped pilot on your stack before signing.',
     },
     {
       q: `How do I negotiate a better ${tool.name} price?`,
-      a: 'Three levers work consistently: get competing quotes from two rivals, sign near quarter-end when sales teams are flexible, and lock a renewal cap in writing at your expected headcount for month 12. Multi-year deals discount 10 to 20 percent but only make sense with that cap.',
+      a: `${tool.negotiationNote} Standard levers still apply: competing quotes, quarter-end timing, and a written renewal cap.`,
     },
   ];
 
@@ -109,17 +124,17 @@ export function pricingPage(tool) {
       <h2 id="reported-heading">Reported pricing</h2>
       <p class="price-line">${esc(tool.priceFrom)}</p>
       <p>${esc(tool.pricingNote)}</p>
-      ${noteBox('This is reported pricing from buyer reports and community threads, re-checked each data pass. It is a negotiation baseline, not a quote.', 'warn')}
+      ${noteBox('Reported pricing from buyer reports and community threads, re-checked each data pass. A negotiation baseline, not a quote.', 'warn')}
     </section>
 
     <section aria-labelledby="drivers-heading">
       <h2 id="drivers-heading">What moves your quote</h2>
       <ul class="criteria-list">
-        <li><strong>Headcount.</strong> Most platforms price by employee count, because that proxies for devices, accounts and controls in scope. A hiring year can move you a tier.</li>
-        <li><strong>Frameworks.</strong> SOC 2 alone is the entry tier. Adding ISO 27001, HIPAA or PCI DSS adds real money at most vendors.</li>
-        <li><strong>Modules.</strong> Trust centers, vendor risk and questionnaire automation are often separate line items.</li>
-        <li><strong>The audit itself.</strong> Software is not the audit. Budget $10,000 to $30,000 for a SOC 2 Type II audit from a CPA firm unless you buy a bundle like Thoropass.</li>
+        <li><strong>Headcount</strong> sets the tier at most vendors here.</li>
+        <li><strong>Frameworks</strong> are the second lever; SOC 2 is the entry price.</li>
       </ul>
+      <p class="body-copy">The audit itself ($10,000 to $30,000 for a SOC 2 Type II) and any module added later &mdash; trust center, vendor risk, questionnaires &mdash; sit outside the software line.</p>
+      ${visitCta(tool)}
     </section>
 
     <section aria-labelledby="compare-heading">
@@ -145,12 +160,6 @@ export function pricingPage(tool) {
           </tbody>
         </table>
       </div>
-    </section>
-
-    <section aria-labelledby="negotiate-heading">
-      <h2 id="negotiate-heading">Negotiation notes</h2>
-      <p class="body-copy">Get two competing quotes before you talk numbers with anyone. Vendors in this category expect negotiation, and a written rival quote is the single strongest lever you have. Sign near quarter-end if you can. Whatever you agree, get the renewal cap in writing: the expensive surprise is rarely year one, it is the year-two renewal at a higher headcount tier.</p>
-      ${visitCta(tool)}
     </section>
 
     ${faqBlock(faqs)}

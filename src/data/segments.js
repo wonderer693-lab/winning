@@ -1,6 +1,8 @@
 // Buyer segments for the "best for" pages. Recommendation logic is
 // computed from each tool's bestFor field; this file holds the copy.
 
+import { lowerFirst } from '../lib/util.js';
+
 export const segments = [
   {
     slug: 'startups',
@@ -134,4 +136,23 @@ export const segments = [
 
 export function getSegment(slug) {
   return segments.find((s) => s.slug === slug);
+}
+
+// Display labels for bestFor slugs, used in prose, breadcrumbs and lists.
+export const SEGMENT_LABELS = {
+  startups: 'Startups',
+  'small-business': 'Small businesses',
+  'mid-market': 'Mid-market companies',
+  enterprise: 'Enterprises',
+  fintech: 'Fintech',
+  healthcare: 'Healthcare',
+  saas: 'SaaS',
+  'first-soc-2': 'First SOC 2 teams',
+};
+
+// "startups and SaaS" — describes a tool's audience in prose.
+export function audiencePhrase(tool) {
+  const labels = tool.bestFor.slice(0, 2).map((s) => SEGMENT_LABELS[s]).filter(Boolean);
+  if (!labels.length) return 'teams';
+  return lowerFirst(labels.length > 1 ? `${labels[0]} and ${labels[1]}` : labels[0]);
 }

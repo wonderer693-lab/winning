@@ -1,6 +1,6 @@
 import { site } from '../config.js';
 import { tools } from '../data/tools.js';
-import { esc, truncate } from '../lib/util.js';
+import { esc, lowerFirst, truncate } from '../lib/util.js';
 import { crumbs, breadcrumbSchema } from '../lib/layout.js';
 import {
   quickAnswer,
@@ -13,7 +13,8 @@ import {
   noteBox,
 } from '../lib/components.js';
 
-// Tools that get a dedicated alternatives page.
+// Tools that get a dedicated alternatives page. Every tool in the dataset
+// is listed here, so links from profiles and tables always resolve.
 const ALTERNATIVE_TARGETS = [
   'vanta',
   'drata',
@@ -24,9 +25,12 @@ const ALTERNATIVE_TARGETS = [
   'scytale',
   'delve',
   'onetrust',
+  'auditboard',
+  'logicgate',
   'upguard',
   'conveyor',
   'safebase',
+  'whistic',
 ];
 
 // Hand-written switching context per target: why people actually leave.
@@ -55,11 +59,31 @@ const SWITCH_CONTEXT = {
     'Conveyor users look elsewhere when per-room and per-seat costs add up, or when they want questionnaire automation bundled inside a full compliance platform.',
   safebase:
     'Since the Drata acquisition, SafeBase switching searches are mostly standalone customers asking what happens to their plan, and whether Conveyor or a platform-native trust center fits better.',
+  auditboard:
+    'Switching searches here come from growth-stage teams that were sold an enterprise audit suite: too much platform, too much implementation, and enterprise pricing. Public companies running SOX rarely leave; teams that bought it for a first SOC 2 usually do.',
+  logicgate:
+    'Teams leave LogicGate when the configuration effort outgrows the need. Risk Cloud rewards organizations with mature, custom risk processes and punishes everyone else with a build project, so buyers who wanted a working program in weeks look at packaged platforms.',
+  whistic:
+    'Whistic buyers look elsewhere when vendor review volume is low and the exchange network does not cover their actual suppliers, or when they realize they need internal compliance automation alongside third-party reviews.',
 };
 
+// Rank replacements: same category first, then by shared framework
+// coverage, breaking ties by circular distance from the target. The
+// distance tie-break rotates each page's shortlist so tables do not
+// repeat the same rows in the same order across 15 pages.
 function alternativesFor(target) {
+  const n = tools.length;
+  const idx = tools.findIndex((t) => t.slug === target.slug);
+  const overlap = (t) => t.frameworks.filter((f) => target.frameworks.includes(f)).length;
+  const distance = (t) => {
+    const i = tools.findIndex((x) => x.slug === t.slug);
+    const d = Math.abs(i - idx);
+    return Math.min(d, n - d);
+  };
   const sameCat = tools.filter((t) => t.slug !== target.slug && t.category === target.category);
-  const others = tools.filter((t) => t.slug !== target.slug && t.category !== target.category);
+  const others = tools
+    .filter((t) => t.slug !== target.slug && t.category !== target.category)
+    .sort((x, y) => overlap(y) - overlap(x) || distance(x) - distance(y));
   return [...sameCat, ...others].slice(0, 8);
 }
 
@@ -102,18 +126,18 @@ export function alternativePage(target) {
   const faqs = [
     {
       q: `What is the best alternative to ${target.name}?`,
-      a: `For most teams, the closest like-for-like replacements are ${alts
+      a: `For most teams leaving ${target.name}, the closest like-for-like replacements are ${alts
         .slice(0, 3)
         .map((t) => t.name)
-        .join(', ')}. The right pick depends on why you are leaving: price, features, auditor network or platform scope.`,
+        .join(', ')}.`,
     },
     {
       q: `Is it hard to switch away from ${target.name}?`,
-      a: 'Plan for two to six weeks. Evidence history and control mappings need to be exported and recreated, and most teams run both platforms in parallel for one audit cycle. Ask your new vendor about migration help; several offer it free to win the deal.',
+      a: `Budget two to six weeks of parallel running: evidence history rebuilds in the new platform, and both ${alts[0].name} and ${alts[1].name} offer migration help.`,
     },
     {
-      q: `Will my auditor accept evidence from a different platform?`,
-      a: 'Yes. Auditors care about evidence quality, not which tool collected it. Every platform listed here produces auditor-acceptable evidence. What helps is choosing a platform your audit firm already knows, which shortens the review.',
+      q: `What do ${target.name} users complain about most?`,
+      a: `${target.weaknesses[2]}`,
     },
   ];
 
@@ -136,19 +160,19 @@ export function alternativePage(target) {
     <section aria-labelledby="why-heading">
       <h2 id="why-heading">Why teams switch from ${esc(target.name)}</h2>
       <p>${esc(context)}</p>
-      <p>${esc(target.name)} starts at a reported ${esc(target.priceFrom.replace(/^Reported /, '').toLowerCase())}. If that number, or what it buys, is the problem, the table below is the honest shortlist.</p>
+      <p>Price check: ${esc(target.name)} ${esc(target.priceProse)}. If cost or fit is the problem, the shortlist below is the honest answer.</p>
     </section>
 
     <section aria-labelledby="table-heading">
       <h2 id="table-heading">${esc(target.name)} alternatives compared</h2>
       ${toolsTable(alts, `Alternatives to ${target.name}, with reported pricing`)}
-      ${noteBox('Prices are reported ranges from buyer reports, not public rate cards. Always get a direct quote; headcount and frameworks move the number significantly.', 'warn')}
+      ${noteBox('Reported ranges, not rate cards. Get a direct quote; headcount and frameworks move the number.', 'warn')}
     </section>
 
     <section aria-labelledby="how-heading">
       <h2 id="how-heading">How to choose between them</h2>
-      <p>Start from the reason you are leaving. If it is price, compare the budget platforms on total first-year cost including the audit, not the software line alone. If it is capability, test the specific feature against a real workflow from your own inbox or cloud account during the trial. If it is auditor friction, ask each vendor to introduce you to two audit firms before you sign anything.</p>
-      <p>Every tool on this page will get you certified. The differences show up in daily usability, renewal pricing and how much manual work survives the "automation".</p>
+      <p>Test each shortlisted tool against the problem that pushed you out: ${lowerFirst(target.weaknesses[0])}. If a replacement has the same flaw, you are buying a migration project, not a fix.</p>
+      <p>Check total first-year cost including the audit, and whether your audit firm already knows ${esc(alts[0].name)}, ${esc(alts[1].name)} or ${esc(alts[2].name)}.</p>
     </section>
 
     ${faqBlock(faqs)}

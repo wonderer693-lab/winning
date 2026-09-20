@@ -21,6 +21,9 @@ export const tools = [
       'Vanta is the default answer when a startup asks how to get SOC 2. It covers more than 20 frameworks, ships a trust center and vendor risk module, and its AI agent drafts policies and answers security questionnaires. The trade-off is price: costs climb with headcount and frameworks, and renewals often land higher than year one.',
     pricingPublic: false,
     priceFrom: 'Reported $7,500 to $15,000+ per year for startups',
+    priceProse: 'starts at a reported $7,500 to $15,000+ per year for small teams',
+    negotiationNote:
+      'Vanta prices on employee count first, then frameworks, and the renewal is where teams report the steepest jumps. Negotiate the renewal cap into the year-one contract while you still have leverage.',
     pricingNote:
       'No public pricing. Entry quotes for small teams typically land in the $7,500 to $15,000 range per year, then scale with employee count and frameworks. Multi-framework and enterprise deals go well past $25,000.',
     frameworksCount: '20+',
@@ -63,6 +66,9 @@ export const tools = [
       'Drata is the strongest Vanta rival and the engineering-first option. It built its name on continuous control monitoring and compliance-as-code, then bought SafeBase to own the trust center layer too. More than 270 integrations and real-time monitoring make it a favorite with SaaS companies that want depth, not just a checklist.',
     pricingPublic: false,
     priceFrom: 'Reported $7,500 to $15,000+ per year for startups',
+    priceProse: 'starts at a reported $7,500 to $15,000+ per year, in the same band as Vanta',
+    negotiationNote:
+      'SafeBase features are now part of Drata packages, so make sure the quote itemizes what used to be standalone. Post-acquisition packaging is still shifting, which cuts both ways in a negotiation.',
     pricingNote:
       'No public pricing. Startup quotes are usually in the same band as Vanta, roughly $7,500 to $15,000 per year, with enterprise tiers climbing from there. SafeBase trust center features are now sold inside Drata bundles.',
     frameworksCount: '20+',
@@ -105,6 +111,9 @@ export const tools = [
       'Secureframe competes on breadth: more than 300 integrations and support for 35+ frameworks, one of the widest lists in the category. It is a frequent shortlist pick for companies that need HIPAA or HITRUST alongside SOC 2, and for mid-market teams stacking several frameworks at once.',
     pricingPublic: false,
     priceFrom: 'Reported $8,000 to $15,000+ per year',
+    priceProse: 'starts at a reported $8,000 to $15,000+ per year',
+    negotiationNote:
+      'Secureframe leverages breadth: it will often bundle a second framework at a discount rather than cut the headline price. If you only need SOC 2, say so and compare against the cheapest credible rival quote.',
     pricingNote:
       'No public pricing. Buyer reports put entry deals around $8,000 to $15,000 per year. Multi-framework bundles are where costs and value both rise.',
     frameworksCount: '35+',
@@ -147,6 +156,9 @@ export const tools = [
       'Sprinto undercuts the US leaders on price while covering the same core frameworks. It is the most common answer when a seed-stage startup says Vanta costs too much. Onboarding is fast, support reviews are strong, and an APAC data center helps companies with residency requirements.',
     pricingPublic: false,
     priceFrom: 'Reported $5,000 to $8,000+ per year for startups',
+    priceProse: 'starts at a reported $5,000 to $8,000+ per year, among the cheapest here',
+    negotiationNote:
+      'Sprinto already prices below US rivals, so discount headroom is thinner than it looks. The better lever is scope: keep the contract to the frameworks you will actually finish this year.',
     pricingNote:
       'No public pricing, but buyer reports consistently put Sprinto below US rivals. Startup deals commonly land between $5,000 and $8,000 per year depending on scope.',
     frameworksCount: '20+',
@@ -189,6 +201,9 @@ export const tools = [
       'Thoropass is both a compliance platform and an audit firm. That bundling is the whole pitch: one vendor, one contract, and no hunt for a separate auditor. First-time SOC 2 teams like the predictability. Teams that want to choose their own auditor, or already have one, will find the bundle restrictive.',
     pricingPublic: false,
     priceFrom: 'Reported $10,000 to $20,000+ per year including audit',
+    priceProse: 'is reported at $10,000 to $20,000+ per year with the audit bundled in',
+    negotiationNote:
+      'The software and audit bundle is priced as one number, so ask for a breakdown before negotiating anything. When teams push, the flexible part is usually the platform fee, not the audit.',
     pricingNote:
       'No public pricing. Platform-plus-audit bundles are commonly reported between $10,000 and $20,000 per year, which compares well against buying software and an audit separately.',
     frameworksCount: '10+',
@@ -231,6 +246,9 @@ export const tools = [
       'Hyperproof is built for the second stage of compliance: when a company has its SOC 2 and now runs several frameworks with a real compliance team. Evidence management, control mapping across frameworks, and workflow depth are the draw. It is more platform than a startup needs for a first audit.',
     pricingPublic: false,
     priceFrom: 'Reported mid five figures per year',
+    priceProse: 'is reported in the mid five figures per year',
+    negotiationNote:
+      'Hyperproof quotes run mid five figures and up, with modules as line items. Scope the quote to the modules you will use in year one rather than the full platform tour.',
     pricingNote:
       'No public pricing. Buyer reports place typical deals in the mid five figures per year, aimed at teams with dedicated compliance staff.',
     frameworksCount: '100+ framework templates',
@@ -273,6 +291,9 @@ export const tools = [
       'Scytale sells AI-assisted evidence collection and hands-on support at startup-friendly prices. It has become a regular name in founder communities as a Vanta alternative when budget is the constraint. The product is younger than the leaders, which shows in ecosystem size more than in core capability.',
     pricingPublic: false,
     priceFrom: 'Reported $5,000 to $10,000+ per year for startups',
+    priceProse: 'starts at a reported $5,000 to $10,000+ per year',
+    negotiationNote:
+      'Scytale competes on price with Sprinto, so use those two quotes against each other. Ask what the renewal looks like at your projected headcount, not today’s.',
     pricingNote:
       'No public pricing. Buyer reports put startup plans between $5,000 and $10,000 per year, competitive with Sprinto.',
     frameworksCount: '20+',
@@ -315,6 +336,9 @@ export const tools = [
       'Delve is the newest serious entrant in this list. It was built AI-native from day one, so evidence collection, policy drafting and questionnaire answering are core rather than added on. Early adopters report fast setup. The obvious caveat is maturity: fewer integrations, fewer auditors who know it, and a shorter track record.',
     pricingPublic: false,
     priceFrom: 'Reported under $10,000 per year for startup plans',
+    priceProse: 'is reported under $10,000 per year for startup plans',
+    negotiationNote:
+      'As the newest platform here, Delve has the most to prove in a negotiation. Ask for a multi-year price lock in exchange for the discount it wants to give.',
     pricingNote:
       'No public pricing. Early buyer reports put startup plans under $10,000 per year, priced to win deals from the incumbents.',
     frameworksCount: '15+',
@@ -357,6 +381,9 @@ export const tools = [
       'OneTrust started in privacy and GDPR consent, then expanded into a broad GRC suite covering risk, ethics, ESG and third-party management. It makes sense for large organizations that want one vendor for privacy and governance. A startup that only needs SOC 2 will find it heavy, slow to implement and priced for a different buyer.',
     pricingPublic: false,
     priceFrom: 'Custom enterprise pricing, typically $25,000+ per year',
+    priceProse: 'is custom enterprise pricing, reported from $25,000+ per year',
+    negotiationNote:
+      'OneTrust deals are modular and enterprise-scoped, so the leverage is in module selection. Every module you defer is real money, and professional services should be itemized, not bundled.',
     pricingNote:
       'No public pricing. Deals are modular and enterprise-scoped; buyer reports commonly start in the mid five figures per year once modules are combined.',
     frameworksCount: '50+',
@@ -399,6 +426,9 @@ export const tools = [
       'AuditBoard is where public companies and pre-IPO teams go for SOX, internal audit and enterprise risk. It is excellent at that job. It is not a SOC 2 automation tool for startups, and judging it by that standard misses the point. If your problem is Sarbanes-Oxley, AuditBoard belongs on the shortlist.',
     pricingPublic: false,
     priceFrom: 'Custom enterprise pricing',
+    priceProse: 'is custom enterprise pricing, scoped per module',
+    negotiationNote:
+      'AuditBoard contracts are scoped per module for enterprise audit and SOX programs. If you are not public or pre-IPO, say so early: the honest answer may be that the platform is more than you need.',
     pricingNote:
       'No public pricing. Enterprise contracts are scoped per module and typically sit well into five or six figures per year.',
     frameworksCount: 'Framework-agnostic',
@@ -441,6 +471,9 @@ export const tools = [
       'LogicGate sells flexibility. Its Risk Cloud platform lets risk teams model their own workflows without code, which suits organizations whose processes do not fit a template. That power costs setup effort and enterprise money. Teams wanting a quick SOC 2 should look elsewhere.',
     pricingPublic: false,
     priceFrom: 'Custom enterprise pricing',
+    priceProse: 'is custom enterprise pricing, scoped by applications and users',
+    negotiationNote:
+      'Risk Cloud is priced by applications and users, so cap both in the contract. Budget for implementation services separately and get the estimate in writing.',
     pricingNote:
       'No public pricing. Buyer reports place typical contracts in the enterprise band, scoped by applications and users.',
     frameworksCount: 'Framework-agnostic',
@@ -483,6 +516,9 @@ export const tools = [
       'UpGuard answers a different question than Vanta: not "are we compliant" but "are our vendors safe". Security ratings, breach monitoring and vendor questionnaire automation are the core. Companies often run it alongside a compliance platform, not instead of one.',
     pricingPublic: false,
     priceFrom: 'Custom pricing, reported five figures per year',
+    priceProse: 'is reported in the five-figure range per year',
+    negotiationNote:
+      'UpGuard pricing grows with vendor count, so estimate your supplier list at month 12, not today, and lock that tier before you sign.',
     pricingNote:
       'No reliable public pricing. Buyer reports place typical contracts in the five-figure range per year depending on modules and vendor count.',
     frameworksCount: 'Questionnaire libraries',
@@ -525,6 +561,9 @@ export const tools = [
       'Conveyor solves one painful job: answering security questionnaires. Its AI drafts answers from your knowledge base, and the trust center lets buyers self-serve documents behind an NDA flow. Sales-led teams feel the value first. It is a point solution, so it complements rather than replaces a compliance platform.',
     pricingPublic: false,
     priceFrom: 'Reported from around $10,000 per year',
+    priceProse: 'starts at a reported $10,000 per year, scaling with rooms and seats',
+    negotiationNote:
+      'Conveyor charges by rooms and seats, which compounds quietly. Cap both in the contract and model what happens when a second team wants its own room.',
     pricingNote:
       'No reliable public pricing. Buyer reports put entry plans around $10,000 per year, scaling with rooms and seats.',
     frameworksCount: 'Knowledge-base driven',
@@ -567,6 +606,9 @@ export const tools = [
       'SafeBase defined the trust center category: a public page where buyers review your security posture, request documents under NDA and skip the questionnaire entirely. Since the Drata acquisition, standalone availability is narrowing. If you want SafeBase today, you are probably buying Drata.',
     pricingPublic: false,
     priceFrom: 'Now sold inside Drata bundles',
+    priceProse: 'is no longer sold standalone following the Drata acquisition',
+    negotiationNote:
+      'SafeBase is no longer sold standalone; you are negotiating a Drata package. Treat it as a Drata deal and use the trust-center requirement as a line item to hold the quote down.',
     pricingNote:
       'Historically reported from around $10,000 per year standalone. Post-acquisition, pricing follows Drata packaging.',
     frameworksCount: 'Evidence-agnostic',
@@ -609,6 +651,9 @@ export const tools = [
       'Whistic focuses on the vendor review workflow: assessing your vendors, sharing your own posture, and reusing completed assessments through its exchange. AI-assisted review speeds up reading vendor documents. It overlaps UpGuard and Conveyor more than it overlaps Vanta.',
     pricingPublic: false,
     priceFrom: 'Custom pricing',
+    priceProse: 'is scoped by assessment volume, reported in the five figures per year',
+    negotiationNote:
+      'Whistic is scoped by assessment volume, so model your real vendor review count from the last year and negotiate on that number, not a forecast.',
     pricingNote:
       'No public pricing. Contracts are scoped by assessment volume and modules; expect five figures per year for serious use.',
     frameworksCount: 'Assessment libraries',

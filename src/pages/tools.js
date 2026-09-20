@@ -2,10 +2,10 @@ import { site } from '../config.js';
 import { tools } from '../data/tools.js';
 import { frameworks } from '../data/frameworks.js';
 import { pairs } from '../data/pairs.js';
-import { esc, truncate } from '../lib/util.js';
+import { SEGMENT_LABELS, audiencePhrase } from '../data/segments.js';
+import { esc, lowerFirst, truncate } from '../lib/util.js';
 import { crumbs, breadcrumbSchema } from '../lib/layout.js';
 import {
-  toolCard,
   toolsTable,
   scorePill,
   verifiedStamp,
@@ -13,6 +13,8 @@ import {
   visitCta,
   frameworkChips,
   relatedGrid,
+  faqBlock,
+  faqSchema,
   pageHeader,
   noteBox,
 } from '../lib/components.js';
@@ -75,6 +77,17 @@ export function toolProfilePage(tool) {
     ['Public pricing', tool.pricingPublic ? 'Yes' : 'No, reported only'],
   ];
 
+  const faqs = [
+    {
+      q: `How much does ${tool.name} cost?`,
+      a: `${tool.pricingPublic ? 'Pricing is partly public. ' : 'It does not publish a full rate card. '}${tool.pricingNote}`,
+    },
+    {
+      q: `What is ${tool.name} best for?`,
+      a: `${tool.name} suits ${audiencePhrase(tool)}. The main draw: ${lowerFirst(tool.strengths[0])}. See the alternatives page for the closest rivals.`,
+    },
+  ];
+
   const body = `<div class="container">
     ${crumbs(crumbItems)}
     <div class="profile">
@@ -118,13 +131,16 @@ export function toolProfilePage(tool) {
         </section>
 
         ${pairLinks.length ? relatedGrid(`${esc(tool.name)} comparisons`, pairLinks) : ''}
+        ${faqBlock(faqs)}
       </div>
 
       <aside class="profile__side">
         <div class="side-card">
           <h2 class="side-card__title">Quick facts</h2>
           <dl class="side-facts">
-            <div><dt>Best for</dt><dd>${esc(tool.bestFor.join(', '))}</dd></div>
+            <div><dt>Best for</dt><dd>${tool.bestFor
+              .map((s) => `<a href="/best/${s}/">${esc(SEGMENT_LABELS[s] ?? s)}</a>`)
+              .join(', ')}</dd></div>
             <div><dt>Price</dt><dd>${esc(tool.priceFrom)}</dd></div>
             <div><dt>G2 rating</dt><dd>${esc(tool.g2.toFixed(1))} (approx)</dd></div>
           </dl>
@@ -145,6 +161,7 @@ export function toolProfilePage(tool) {
     body,
     schemas: [
       breadcrumbSchema(crumbItems),
+      faqSchema(faqs),
       {
         '@context': 'https://schema.org',
         '@type': 'Product',

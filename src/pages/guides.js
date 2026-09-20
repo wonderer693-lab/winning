@@ -1,6 +1,6 @@
 import { site } from '../config.js';
 import { guides } from '../data/guides.js';
-import { esc, truncate, prettyDate } from '../lib/util.js';
+import { esc, truncate } from '../lib/util.js';
 import { crumbs, breadcrumbSchema } from '../lib/layout.js';
 import { faqBlock, faqSchema, relatedGrid, verifiedStamp, pageHeader } from '../lib/components.js';
 
@@ -29,7 +29,7 @@ export function guidesIndexPage() {
   return {
     path: '/guides/',
     title: `Compliance guides: costs, choices, frameworks | ${site.name}`,
-    description: `Practical guides: ${guides.map((g) => g.title).join('; ')}.`,
+    description: truncate(`Practical guides: ${guides.map((g) => g.title).join('; ')}.`, 155),
     body,
     schemas: [breadcrumbSchema(crumbItems)],
   };
@@ -84,6 +84,7 @@ export function guidePage(guide) {
         description: guide.description,
         author: { '@type': 'Organization', name: site.author },
         publisher: { '@type': 'Organization', name: site.name },
+        datePublished: site.verifiedDate,
         dateModified: site.verifiedDate,
         mainEntityOfPage: `${site.url}/guides/${guide.slug}/`,
       },

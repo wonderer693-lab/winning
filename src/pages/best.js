@@ -1,7 +1,7 @@
 import { site } from '../config.js';
 import { tools } from '../data/tools.js';
-import { segments } from '../data/segments.js';
-import { esc, truncate } from '../lib/util.js';
+import { segments, SEGMENT_LABELS } from '../data/segments.js';
+import { esc, truncate, windowAround } from '../lib/util.js';
 import { crumbs, breadcrumbSchema } from '../lib/layout.js';
 import {
   toolsTable,
@@ -34,7 +34,10 @@ export function bestIndexPage() {
   return {
     path: '/best/',
     title: `Best compliance software by company type | ${site.name}`,
-    description: `Shortlists for ${segments.map((s) => s.name).join(', ')}: honest picks with reported pricing for each buyer type.`,
+    description: truncate(
+      `Shortlists for ${segments.map((s) => s.name).join(', ')}: honest picks with reported pricing for each buyer type.`,
+      155
+    ),
     body,
     schemas: [breadcrumbSchema(crumbItems)],
   };
@@ -45,14 +48,13 @@ export function bestPage(segment) {
   const crumbItems = [
     { name: 'Home', path: '/' },
     { name: 'Best for', path: '/best/' },
-    { name: segment.name, path: `/best/${segment.slug}/` },
+    { name: SEGMENT_LABELS[segment.slug] ?? segment.name, path: `/best/${segment.slug}/` },
   ];
 
+  const others = segments.filter((s) => s.slug !== segment.slug);
+  const start = segments.findIndex((s) => s.slug === segment.slug) % others.length;
   const related = [
-    ...segments
-      .filter((s) => s.slug !== segment.slug)
-      .slice(0, 4)
-      .map((s) => ({ href: `/best/${s.slug}/`, label: s.title })),
+    ...windowAround(others, start, 4).map((s) => ({ href: `/best/${s.slug}/`, label: s.title })),
     { href: '/guides/choose-compliance-software/', label: 'How to choose compliance software' },
   ];
 
@@ -81,12 +83,7 @@ export function bestPage(segment) {
     <section aria-labelledby="note-heading">
       <h2 id="note-heading">Our read on this segment</h2>
       <p class="body-copy">${esc(segment.note)}</p>
-    </section>
-
-    <section aria-labelledby="table-heading">
-      <h2 id="table-heading">All ${picks.length} picks, side by side</h2>
-      ${toolsTable(picks, `Compliance software for ${segment.name}`)}
-      ${noteBox('Reported pricing from buyer reports, not public rate cards. Get direct quotes at your real headcount before deciding.', 'warn')}
+      ${noteBox('Reported ranges, not rate cards. Get direct quotes at your real headcount.', 'warn')}
     </section>
 
     ${relatedGrid('Other shortlists', related)}

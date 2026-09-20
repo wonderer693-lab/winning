@@ -1,7 +1,7 @@
 import { site } from '../config.js';
 import { tools } from '../data/tools.js';
 import { frameworks } from '../data/frameworks.js';
-import { esc, truncate } from '../lib/util.js';
+import { esc, truncate, windowAround } from '../lib/util.js';
 import { crumbs, breadcrumbSchema } from '../lib/layout.js';
 import {
   toolsTable,
@@ -52,11 +52,10 @@ export function frameworkPage(fw) {
     { name: fw.shortName, path: `/frameworks/${fw.slug}/` },
   ];
 
+  const others = frameworks.filter((f) => f.slug !== fw.slug);
+  const start = frameworks.findIndex((f) => f.slug === fw.slug) % others.length;
   const related = [
-    ...frameworks
-      .filter((f) => f.slug !== fw.slug)
-      .slice(0, 4)
-      .map((f) => ({ href: `/frameworks/${f.slug}/`, label: `${f.shortName} software` })),
+    ...windowAround(others, start, 4).map((f) => ({ href: `/frameworks/${f.slug}/`, label: `${f.shortName} software` })),
     { href: '/guides/choose-compliance-software/', label: 'How to choose compliance software' },
     { href: '/tools/', label: 'All tools compared' },
   ];
@@ -90,7 +89,7 @@ export function frameworkPage(fw) {
       <h2 id="tools-heading">Best ${esc(fw.shortName)} software</h2>
       <p>${supporting.length} tools we track support ${esc(fw.shortName)}. Reported pricing and coverage:</p>
       ${toolsTable(supporting, `Tools supporting ${fw.shortName}`)}
-      ${noteBox('Framework support is self-reported by vendors and verified against documentation where possible. Depth varies: some tools map a handful of controls, others automate most evidence collection.', 'info')}
+      ${noteBox('Coverage is vendor-reported. Depth varies: some tools map a few controls, others automate most evidence.', 'info')}
     </section>
 
     ${faqBlock(fw.faqs)}

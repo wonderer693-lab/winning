@@ -1,5 +1,5 @@
 import { esc, mark } from './util.js';
-import { site } from '../config.js';
+import { site, monetization } from '../config.js';
 
 // Small UI components shared across page types. Everything returns HTML
 // strings; the build step assembles them into full pages.
@@ -38,7 +38,10 @@ export function toolCard(tool, { showPricing = true } = {}) {
 }
 
 export function visitCta(tool) {
-  return `<a class="btn btn--primary" href="${esc(tool.website)}" rel="sponsored nofollow noopener" target="_blank">Visit ${esc(tool.name)}<span class="btn__ext" aria-hidden="true">↗</span></a>`;
+  // Vendor links stay nofollow until affiliate programs are signed, then
+  // they are marked sponsored. Either way the verdict never changes.
+  const rel = monetization.affiliateLinksActive ? 'sponsored nofollow noopener' : 'nofollow noopener';
+  return `<a class="btn btn--primary" href="${esc(tool.website)}" rel="${rel}" target="_blank">Visit ${esc(tool.name)}<span class="btn__ext" aria-hidden="true">↗</span></a>`;
 }
 
 export function quickAnswer(html) {

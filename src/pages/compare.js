@@ -1,7 +1,7 @@
 import { site } from '../config.js';
 import { tools } from '../data/tools.js';
 import { pairs } from '../data/pairs.js';
-import { esc, truncate } from '../lib/util.js';
+import { esc, lowerFirst, truncate } from '../lib/util.js';
 import { crumbs, breadcrumbSchema } from '../lib/layout.js';
 import {
   quickAnswer,
@@ -81,15 +81,15 @@ export function vsPage(pair) {
   const faqs = [
     {
       q: `Is ${a.name} or ${b.name} cheaper?`,
-      a: `Neither publishes full pricing. Reported figures: ${a.name} starts around "${a.priceFrom.replace(/^Reported /, '')}", ${b.name} around "${b.priceFrom.replace(/^Reported /, '')}". Quotes move with headcount and frameworks, so compare total first-year cost including the audit, not the software line alone.`,
+      a: `Neither publishes a full rate card. ${a.name} ${a.priceProse}; ${b.name} ${b.priceProse}. Compare total first-year cost including the audit, not the software line alone.`,
     },
     {
       q: `Which is better for a first SOC 2, ${a.name} or ${b.name}?`,
-      a: `Both can get you there. ${a.name} fits teams that ${a.bestFor.includes('first-soc-2') ? 'are getting their first certification and want ' + a.tagline.toLowerCase() : 'match its strengths: ' + a.tagline.toLowerCase()}. ${b.name} fits teams that want ${b.tagline.toLowerCase()}. The auditor relationship and total cost usually decide it.`,
+      a: `Both can get you there. ${a.name} wins when ${lowerFirst(pair.chooseA[0])}, and ${b.name} when ${lowerFirst(pair.chooseB[0])}. The auditor relationship and total cost usually decide it.`,
     },
     {
       q: `Can I switch from ${a.name} to ${b.name} later?`,
-      a: 'Yes, and teams do. Plan for two to six weeks of parallel running, export your evidence history, and ask the new vendor about migration support. The certificate itself transfers; the evidence history needs rebuilding.',
+      a: `Yes, and teams switch both directions. Budget two to six weeks of parallel running: evidence history rebuilds, the certificate transfers. Ask ${b.name} about migration support before you sign.`,
     },
   ];
 
@@ -110,20 +110,24 @@ export function vsPage(pair) {
     ...otherPairs,
   ];
 
+  const verdictSentences = pair.verdict.split('. ');
+  const verdictLede = verdictSentences[0] + '.';
+  const verdictQuick = verdictSentences.slice(1, 3).join('. ') || pair.verdict;
+
   const body = `<div class="container">
     ${crumbs(crumbItems)}
     ${pageHeader({
       h1: `${a.name} vs ${b.name}: an honest comparison (${site.verifiedLabel})`,
-      lede: `${a.tagline} against ${b.tagline.toLowerCase()}. Reported pricing, feature depth, and a plain verdict.`,
+      lede: verdictLede,
       meta: verifiedStamp(),
     })}
 
-    ${quickAnswer(`<p>${esc(pair.verdict.split('. ')[0])}. ${esc(pair.verdict.split('. ')[1] || '')}</p>`)}
+    ${quickAnswer(`<p>${esc(verdictQuick)}</p>`)}
 
     <section aria-labelledby="table-heading">
       <h2 id="table-heading">${esc(a.name)} vs ${esc(b.name)}: side by side</h2>
       ${vsTable(a, b, VS_ROWS)}
-      ${noteBox('Feature marks reflect vendor documentation and our research. "Partial" means the capability exists with real limits. Pricing is reported, not from public rate cards.', 'info')}
+      ${noteBox('Feature marks reflect vendor documentation and our research. "Partial" means real limits. Pricing is reported, not from rate cards.', 'info')}
     </section>
 
     <section aria-labelledby="verdict-heading">

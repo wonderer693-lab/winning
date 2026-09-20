@@ -3,6 +3,53 @@
    Hand-written. One accent color, one typeface, restrained everything.
    ========================================================================== */
 
+/* Inter, self-hosted (latin subset). No third-party font requests. */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/inter-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/inter-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/inter-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/inter-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/assets/fonts/inter-800.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --paper: #ffffff;
   --bg: #f7f8fa;
@@ -155,6 +202,7 @@ strong { color: var(--ink); font-weight: 600; }
 
 .site-nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 4px;
 }
@@ -498,6 +546,14 @@ strong { color: var(--ink); font-weight: 600; }
   box-shadow: var(--shadow);
 }
 
+/* Hint that a table scrolls sideways when the script detects overflow. */
+.table-scroll.is-scrollable {
+  background-image: linear-gradient(to left, rgb(14 22 38 / 0.07), transparent 28px);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 28px 100%;
+}
+
 table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 560px; }
 
 caption {
@@ -826,8 +882,10 @@ tbody tr:hover { background: #fafbfc; }
 }
 
 @media (max-width: 720px) {
-  .nav-toggle { display: block; }
-  .site-nav {
+  /* Without JS the nav stays visible and wraps; the toggle only appears
+     when the js class confirms the script is running. */
+  .js .nav-toggle { display: block; }
+  .js .site-nav {
     position: absolute;
     top: 60px; left: 0; right: 0;
     display: none;
@@ -839,8 +897,9 @@ tbody tr:hover { background: #fafbfc; }
     border-bottom: 1px solid var(--line);
     box-shadow: var(--shadow-hover);
   }
-  .site-nav.is-open { display: flex; }
-  .site-nav a { padding: 11px 12px; font-size: 1rem; }
+  .js .site-nav.is-open { display: flex; }
+  .site-nav { font-size: 0.9rem; }
+  .site-nav a { padding: 7px 9px; }
   .hero__stats { gap: 18px; }
   .section__head { flex-direction: column; align-items: flex-start; gap: 4px; }
 }

@@ -92,6 +92,7 @@ export function layout({
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0d7a5f">
     <title>${esc(title)}</title>
     <meta name="description" content="${esc(description)}">
     <link rel="canonical" href="${canonical}">
@@ -101,13 +102,15 @@ export function layout({
     <meta property="og:title" content="${esc(title)}">
     <meta property="og:description" content="${esc(description)}">
     <meta property="og:url" content="${canonical}">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="${site.url}/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${esc(title)}">
     <meta name="twitter:description" content="${esc(description)}">
+    <meta name="twitter:image" content="${site.url}/og-image.png">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <script>document.documentElement.classList.add('js');</script>
     <link rel="stylesheet" href="/assets/styles.css">
     ${schemaHtml}
   </head>
